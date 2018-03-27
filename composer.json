@@ -1,6 +1,8 @@
 {
     "name": "gray_liusen/level",
     "description": "灰度分",
+    "license": "MIT",
+     "minimum-stability": "stable",
     "authors": [
         {
             "name": "carson",
