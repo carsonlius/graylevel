@@ -10,7 +10,7 @@ class GrayLevelScore
     public static function getScore($tel, $response_type = 'array')
     {
         #参数过滤
-        $search_tel = is_string($tel) ? (array)trim($tel) : $tel;
+        $search_tel = is_array($tel) ? $tel : (array)trim($tel);
         if (!$search_tel) {
             self::response(1, 'FAIL', [], $response_type);
         }
@@ -22,16 +22,15 @@ class GrayLevelScore
 
         // 因为分表,所以必须单个的查询或者小批量的查询
         $data_response = [];
-        foreach ($search_tel as $tel) {
-            $gray_info_tel = self::getGrayInfo($tel);
-            $data_response[$tel] = [
+        foreach ($search_tel as $item_tel) {
+            $gray_info_tel = self::getGrayInfo((string)$item_tel);
+            $data_response[$item_tel] = [
                 'flag' => isset($gray_info_tel['flag']) ? $gray_info_tel['flag'] : '未命中'
             ];
         }
 
         return self::response(0, 'SUCCESS', $data_response, $response_type);
     }
-
 
     /**
      * response
@@ -66,10 +65,8 @@ class GrayLevelScore
     protected static function getGrayInfo($tel)
     {
         $table_name = self::$col_base . ($tel % 10);
-
         $mysqli = GrayDb::get('gray_db');
         $sql = "select * from " . $table_name . " where tel='" . trim($tel) . "'";
-        $gray_info_tel = $mysqli->dhbGetOne($sql);
-        return array_shift($gray_info_tel);
+        return $mysqli->dhbGetOne($sql);
     }
 }
