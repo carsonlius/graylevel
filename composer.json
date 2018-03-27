@@ -1,0 +1,16 @@
+{
+    "name": "gray/level",
+    "description": "灰度分",
+    "authors": [
+        {
+            "name": "carson",
+            "email": "carsonlius@163.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "gray\\level\\": "src/",
+            "gray\\test\\": "test/"
+        }
+    }
+}
