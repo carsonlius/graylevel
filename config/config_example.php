@@ -11,4 +11,11 @@ return [
             'charset' => 'x'
         ]
     ],
+    'redis' => [
+        'gray_redis' => [
+            'type' => 'redis',
+            'host' => '127.0.0.1',
+            'port' => '6379',
+        ]
+    ]
 ];
